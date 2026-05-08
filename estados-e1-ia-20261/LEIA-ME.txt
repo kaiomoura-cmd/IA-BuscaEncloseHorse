@@ -1,0 +1,16 @@
+# Como interpretar os arquivos
+
+Cada arquivo .txt presente na pasta `estados` é um estado possível do jogo em alguma instância (nesse caso, consideramos apenas as instâncias geometry ou entice).
+Na primeira linha, dois inteiros descrevem o tamanho horizontal H e vertical V da instância.
+Após a primeira linha, haverão V linhas com H caracteres cada, representando o estado do jogo.
+Cada caractere possui um significado:
+
+  = espaço livre
+% = lagoa
+C = cavalo
++ = parede colocada pelo(a) jogador(a)
+J = cereja (+3 pontos)
+M = maçã (+10 pontos)
+A = enxame de abelhas (-5 pontos)
+
+Na última linha, haverá um link para jogar a respectiva instância original no site enclose.horse.
