@@ -24,3 +24,6 @@ teste_*.png
 # Ficheiros do sistema
 Thumbs.db
 .DS_Store
+
+# Material de terceiros (enunciados, apostilas)
+*.pdf

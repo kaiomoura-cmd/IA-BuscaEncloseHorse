@@ -1,0 +1,6 @@
+# Dependências do agente de busca (enclose.horse)
+
+# Necessárias apenas para a visualização gráfica (opcional):
+# sem elas, as buscas e o benchmark funcionam normalmente no terminal.
+numpy>=1.24
+matplotlib>=3.7

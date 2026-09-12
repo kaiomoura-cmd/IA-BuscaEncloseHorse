@@ -295,22 +295,36 @@ class JogoCavalo:
 # FUNCOES AUXILIARES (menus, IO)
 # ======================================================================
 
+def eh_instancia_valida(caminho_arquivo):
+    """Confere se o arquivo comeca com as duas dimensoes (H V) do mapa.
+
+    A pasta 'instancias' tambem guarda arquivos de documentacao (.txt), entao
+    filtrar pela primeira linha evita tentar carregar texto solto como estado.
+    """
+    try:
+        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+            dimensoes = arquivo.readline().strip().split()
+    except (OSError, UnicodeDecodeError):
+        return False
+    return len(dimensoes) >= 2 and all(d.isdigit() for d in dimensoes[:2])
+
+
 def listar_arquivos_disponiveis():
-    """Procura os ficheiros .txt na pasta 'estados'."""
-    # Tenta encontrar a pasta estados relativamente ao script
+    """Procura os ficheiros .txt na pasta 'instancias'."""
+    # Tenta encontrar a pasta instancias relativamente ao script
     dir_atual = os.path.dirname(os.path.abspath(__file__))
-    pasta_estados = os.path.join(dir_atual, 'estados-e1-ia-20261', 'estados')
+    pasta_estados = os.path.join(dir_atual, 'instancias')
 
     # Se nao encontrar, tenta a partir do diretorio corrente
     if not os.path.isdir(pasta_estados):
-        pasta_estados = os.path.join(os.getcwd(), 'estados-e1-ia-20261', 'estados')
+        pasta_estados = os.path.join(os.getcwd(), 'instancias')
 
     if not os.path.isdir(pasta_estados):
         return None, []
 
     ficheiros = sorted([
         f for f in os.listdir(pasta_estados)
-        if f.endswith('.txt')
+        if f.endswith('.txt') and eh_instancia_valida(os.path.join(pasta_estados, f))
     ])
     return pasta_estados, ficheiros
 
@@ -324,9 +338,9 @@ def selecionar_arquivo():
         print("   ERRO: PASTA DE ESTADOS NAO ENCONTRADA!")
         print("=" * 50)
         print("Nao foi possivel localizar a pasta:")
-        print("  'estados-e1-ia-20261/estados/'")
+        print("  'instancias/'")
         print("\nCertifique-se de que o script esta no mesmo diretorio")
-        print("da pasta 'estados-e1-ia-20261'.")
+        print("da pasta 'instancias'.")
         print("=" * 50)
         return None, None
 
